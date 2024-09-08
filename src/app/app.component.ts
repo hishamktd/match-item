@@ -37,6 +37,20 @@ export class AppComponent {
       }
     }
 
+    // Set the updated selected items
     this.selectedItems.set(updatedItems);
+
+    // Check if all selected items are the same
+    if (
+      updatedItems.length === 3 &&
+      updatedItems.every((item) => item.icon === updatedItems[0].icon)
+    ) {
+      // Remove the item from iconArray
+      const itemToRemove = updatedItems[0].icon;
+      const updatedIconArray = this.iconArray().filter(
+        (item) => item.icon !== itemToRemove
+      );
+      this.iconArray.set(updatedIconArray);
+    }
   }
 }
