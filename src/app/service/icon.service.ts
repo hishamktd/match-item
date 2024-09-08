@@ -31,6 +31,11 @@ export class IconService {
     if (currentItems.includes(icon)) {
       // If the item is already selected, remove it
       updatedItems = currentItems.filter((item) => item !== icon);
+    } else if (
+      currentItems.every((item) => currentItems?.[0]?.icon === item.icon) &&
+      currentItems.length === 3
+    ) {
+      updatedItems = [icon];
     } else {
       // If the item is not selected, add it
       updatedItems = [...currentItems, icon];
@@ -57,7 +62,7 @@ export class IconService {
       // Update the iconArray and increment the removedItemsCount
       this.iconArraySubject.next(updatedIconArray);
 
-      this.selectedItemsSubject.next([]);
+      // this.selectedItemsSubject.next([]);
       this.removedItemsCount.next(this.removedItemsCount.value + 3);
     }
   }

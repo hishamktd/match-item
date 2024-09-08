@@ -16,7 +16,7 @@
       <div class="h-[40px] flex flex-col">
         <span class="text-white text-xs">Removed items:</span>
         <h5
-          class="text-white text-md font-bold"
+          class="text-white text-md font-bold cursor-pointer"
           (click)="toggleShowTotalNumberOfIcons()"
         >
           @if (isShowTotalNumberOfIcons()) {
@@ -31,7 +31,7 @@
 </div>
 
 <div
-  class="flex items-center content-center justify-center gap-1 mt-3 flex-wrap"
+  class="flex items-center content-center justify-center gap-1 mt-3 flex-wrap px-2"
 >
   @for (icon of (iconArray$ | async); track icon.id) {
   <app-icon-box
