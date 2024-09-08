@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class IconBoxComponent {
   @Input() selected = false;
   @Output() iconClick = new EventEmitter();
+  @Input() size: string = '32px';
 
   onIconClick() {
     this.iconClick.emit();

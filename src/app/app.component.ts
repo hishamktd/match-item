@@ -1,6 +1,10 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IconBoxComponent } from './icon-box/icon-box.component';
+import { IconService } from './service/icon.service';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { map } from 'rxjs/operators';
 import iconsArray from './constants/icons';
 
 interface Icons {
@@ -11,46 +15,35 @@ interface Icons {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, IconBoxComponent],
+  imports: [RouterOutlet, IconBoxComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ng-05-fun';
 
-  iconArray = signal<Icons[]>(iconsArray);
-  selectedItems = signal<Icons[]>([]);
+  iconArray$!: Observable<Icons[]>;
+  selectedItems$!: Observable<Icons[]>;
+  totalNumberIcons$!: Observable<number>;
+  removedItemsCount$!: Observable<number>;
+
+  initialNumberOfIcons = signal<number>(iconsArray.length);
+  isShowTotalNumberOfIcons = signal<boolean>(true);
+
+  constructor(private iconService: IconService) {}
+
+  ngOnInit(): void {
+    this.iconArray$ = this.iconService.iconArray$;
+    this.selectedItems$ = this.iconService.selectedItems$;
+    this.totalNumberIcons$ = this.iconArray$.pipe(map((icons) => icons.length));
+    this.removedItemsCount$ = this.iconService.removedItemsCount$;
+  }
 
   handleOnIconClick(icon: Icons) {
-    const currentItems = this.selectedItems();
-    let updatedItems: Icons[];
+    this.iconService.handleOnIconClick(icon);
+  }
 
-    if (currentItems.includes(icon)) {
-      // If the item is already selected, remove it
-      updatedItems = currentItems.filter((item) => item !== icon);
-    } else {
-      // If the item is not selected, add it
-      updatedItems = [...currentItems, icon];
-      if (updatedItems.length > 3) {
-        // Remove the first item if there are more than 3
-        updatedItems.shift();
-      }
-    }
-
-    // Set the updated selected items
-    this.selectedItems.set(updatedItems);
-
-    // Check if all selected items are the same
-    if (
-      updatedItems.length === 3 &&
-      updatedItems.every((item) => item.icon === updatedItems[0].icon)
-    ) {
-      // Remove the item from iconArray
-      const itemToRemove = updatedItems[0].icon;
-      const updatedIconArray = this.iconArray().filter(
-        (item) => item.icon !== itemToRemove
-      );
-      this.iconArray.set(updatedIconArray);
-    }
+  toggleShowTotalNumberOfIcons() {
+    this.isShowTotalNumberOfIcons.set(!this.isShowTotalNumberOfIcons());
   }
 }

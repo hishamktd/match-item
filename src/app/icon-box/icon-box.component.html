@@ -1,7 +1,9 @@
 <div
-  class="w-[32px] h-[32px] flex items-center justify-center border-2 border-gray-300 rounded-md select-none cursor-pointer
+  class="flex items-center justify-center border-2 border-gray-300 rounded-md select-none cursor-pointer
   {{ selected && 'bg-gray-300' }}"
   (click)="onIconClick()"
+  [style.width]="size"
+  [style.height]="size"
 >
   <i>
     <ng-content></ng-content>
