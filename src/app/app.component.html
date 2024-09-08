@@ -1,9 +1,41 @@
+<div class="h-[12vh] w-[100%] sticky top-0 px-2 pt-2 backdrop-blur-sm">
+  <div
+    class="w-[100%] h-[100%] bg-blue-500 drop-shadow-xl rounded-[6px] bg-opacity-90 flex items-center justify-between p-3"
+  >
+    <span class="text-white text-lg font-bold text-blue-900 inset-0">
+      Match Item
+    </span>
+    <div class="flex gap-3 items-center">
+      <div class="flex flex-col w-[130px] h-[40px]">
+        <span class="text-white text-xs">Selected items</span>
+        <div class="flex gap-1 flex-row">
+          @for (sIcon of (selectedItems$| async); track sIcon?.id) {
+          <app-icon-box size="25px"> {{ sIcon?.icon }} </app-icon-box>}
+        </div>
+      </div>
+      <div class="h-[40px] flex flex-col">
+        <span class="text-white text-xs">Removed items:</span>
+        <h5
+          class="text-white text-md font-bold"
+          (click)="toggleShowTotalNumberOfIcons()"
+        >
+          @if (isShowTotalNumberOfIcons()) {
+          {{ removedItemsCount$ | async }} / {{ initialNumberOfIcons() }}
+          }@else {
+          {{ removedItemsCount$ | async }} / {{ (iconArray$ | async)?.length }}
+          }
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div
   class="flex items-center content-center justify-center gap-1 mt-3 flex-wrap"
 >
-  @for (icon of iconArray(); track icon.id) {
+  @for (icon of (iconArray$ | async); track icon.id) {
   <app-icon-box
-    [selected]="selectedItems().includes(icon)"
+    [selected]="(selectedItems$ | async)?.includes(icon) || false"
     (iconClick)="handleOnIconClick(icon)"
   >
     {{ icon.icon }}
