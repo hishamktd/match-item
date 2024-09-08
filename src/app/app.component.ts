@@ -6,11 +6,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { map } from 'rxjs/operators';
 import iconsArray from './constants/icons';
-
-interface Icons {
-  id: number;
-  icon: string;
-}
+import { Icons } from './models/icon.mode';
 
 @Component({
   selector: 'app-root',

@@ -1,3 +1,6 @@
+import { Icons } from '../models/icon.mode';
+import shuffleArray from '../utils/shuffle-array-util';
+
 const iconsArray = [
   // ** First Row **
   { id: 1, icon: '✮' },
@@ -605,4 +608,7 @@ const iconsArray = [
   { id: 600, icon: '🎤' },
 ];
 
-export default iconsArray;
+// Shuffle the iconsArray
+const shuffledIconsArray = shuffleArray<Icons>(iconsArray);
+
+export default shuffledIconsArray;
