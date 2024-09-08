@@ -1,0 +1,44 @@
+<!-- <div class="bottom-12 text-right pl-16">Box</div>
+
+<div className="min-h-screen bg-gray-100 flex items-center justify-center">
+  <h1 className="text-4xl font-bold text-blue-600">Hello, Tailwind CSS!</h1>
+</div> -->
+
+<!-- <button class="primary-button">Button Primary</button> -->
+
+<!-- <app-pagination /> -->
+<!-- 
+<div
+  class="w-[100] bg-slate-200 h-[100vh] flex items-center content-center justify-center gap-4 flex-wrap"
+>
+  <app-card><div>Hi iam mohammed hisham</div></app-card>
+  <app-card>
+    <ng-container ngProjectAs="card-title">
+      <span class="text-lg font-medium">Any Name</span>
+      <span class="text-xs font-light">This is not my card</span>
+    </ng-container>
+    <h1>Hi iam mohammed hisham pp</h1>
+  </app-card>
+  <app-card>
+    <ng-container ngProjectAs="card-title">
+      <span class="text-lg font-medium">Hisham</span>
+      <span class="text-xs font-light">This is my card</span>
+    </ng-container>
+    <h1>Hi iam hisham</h1>
+  </app-card>
+  <app-card></app-card>
+  <app-card></app-card>
+</div> -->
+
+<div
+  class="flex items-center content-center justify-center gap-1 mt-3 flex-wrap"
+>
+  @for (icon of iconArray(); track icon.id) {
+  <app-icon-box
+    [selected]="selectedItems().includes(icon)"
+    (iconClick)="handleOnIconClick(icon)"
+  >
+    {{ icon.icon }}
+  </app-icon-box>
+  }
+</div>
